@@ -4,7 +4,29 @@ export default class ApiService extends Service {
   endpoint: string = 'http://localhost:3000';
 
   async getBasic(url: string): Promise<any> {
-    return await fetch(this.endpoint + '/api/' + url)
+    return await fetch(`${this.endpoint}/api/${url}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => json);
+  }
+
+  async postBasic(url: string, data: Object): Promise<any> {
+    const formData = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    return await fetch(`${this.endpoint}/api/${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
+      },
+      body: formData.toString(),
+    })
       .then((response) => response.json())
       .then((json) => json);
   }
