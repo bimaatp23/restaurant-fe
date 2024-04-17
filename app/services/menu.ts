@@ -1,12 +1,12 @@
-import Service, { service } from '@ember/service'
-import type { GetMenuResp } from 'menu/GetMenuResp'
-import type ApiService from './api'
+import Service, { service } from '@ember/service';
+import type { GetMenuResp } from 'menu/GetMenuResp';
+import type ApiService from './api';
 
 export default class MenuService extends Service {
-  @service api!: ApiService
+  @service api!: ApiService;
 
   async getMenu(): Promise<GetMenuResp> {
-    return this.api.getBasic('menu')
+    return this.api.getBasic('menu');
   }
 }
 
@@ -16,6 +16,6 @@ export default class MenuService extends Service {
 // like `@service('menu') declare altName: MenuService`.
 declare module '@ember/service' {
   interface Registry {
-    menu: MenuService
+    menu: MenuService;
   }
 }

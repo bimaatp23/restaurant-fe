@@ -1,12 +1,12 @@
-import Service from '@ember/service'
+import Service from '@ember/service';
 
 export default class ApiService extends Service {
-  endpoint: string = 'http://localhost:3000'
+  endpoint: string = 'http://localhost:3000';
 
   async getBasic(url: string): Promise<any> {
     return await fetch(this.endpoint + '/api/' + url)
       .then((response) => response.json())
-      .then((json) => json)
+      .then((json) => json);
   }
 }
 
@@ -16,6 +16,6 @@ export default class ApiService extends Service {
 // like `@service('api') declare altName: ApiService`.
 declare module '@ember/service' {
   interface Registry {
-    api: ApiService
+    api: ApiService;
   }
 }
