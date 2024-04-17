@@ -1,7 +1,6 @@
 import { action } from '@ember/object';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 import type { Menu } from 'menu/Menu';
 import type MenuService from 'restaurant-fe/services/menu';
 import RSVP from 'rsvp';

@@ -1,7 +1,9 @@
 {{page-title "Restaurant"}}
 
 <Header />
-<div class="pt-28 pb-10">
+<div class="py-20 flex-grow min-h-screen relative">
     {{outlet}}
+    <div class="absolute bottom-0 w-full">
+        <Footer />
+    </div>
 </div>
-<Footer />
