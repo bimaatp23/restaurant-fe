@@ -6,22 +6,22 @@ import type MenuService from 'restaurant-fe/services/menu';
 import RSVP from 'rsvp';
 
 export default class HomeRoute extends Route {
-  @service menu!: MenuService;
+    @service menu!: MenuService;
 
-  menuList: Menu[] = [];
+    menuList: Menu[] = [];
 
-  @action
-  async getMenu(): Promise<void> {
-    await this.menu.getMenu().then((response) => {
-      this.menuList = response.output_schema;
-    });
-  }
+    @action
+    async getMenu(): Promise<void> {
+        await this.menu.getMenu().then((response) => {
+            this.menuList = response.output_schema;
+        });
+    }
 
-  async model() {
-    await this.getMenu();
+    async model() {
+        await this.getMenu();
 
-    return RSVP.hash({
-      menuList: this.menuList,
-    });
-  }
+        return RSVP.hash({
+            menuList: this.menuList,
+        });
+    }
 }

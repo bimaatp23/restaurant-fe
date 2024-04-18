@@ -4,12 +4,12 @@ import { service } from '@ember/service';
 import type SessionService from 'restaurant-fe/services/session';
 
 export default class RegisterRoute extends Route {
-  @service router!: RouterService;
-  @service session!: SessionService;
+    @service router!: RouterService;
+    @service session!: SessionService;
 
-  beforeModel() {
-    if (this.session.isLogin()) {
-      this.router.transitionTo('home');
+    beforeModel() {
+        if (this.session.isLogin()) {
+            this.router.transitionTo('home');
+        }
     }
-  }
 }

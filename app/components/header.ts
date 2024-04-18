@@ -5,14 +5,14 @@ import type { Session } from 'Session';
 import type SessionService from 'restaurant-fe/services/session';
 
 export default class HeaderComponent extends Component {
-  @service session!: SessionService;
+    @service session!: SessionService;
 
-  activeSession: Session = this.session.getSession();
-  isLogin: boolean = this.session.isLogin();
+    activeSession: Session = this.session.getSession();
+    isLogin: boolean = this.session.isLogin();
 
-  @action
-  doLogout() {
-    this.session.removeSesssion();
-    window.location.reload();
-  }
+    @action
+    doLogout() {
+        this.session.removeSesssion();
+        window.location.reload();
+    }
 }

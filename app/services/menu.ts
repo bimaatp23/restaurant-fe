@@ -3,11 +3,11 @@ import type { GetMenuResp } from 'menu/GetMenuResp';
 import type ApiService from './api';
 
 export default class MenuService extends Service {
-  @service api!: ApiService;
+    @service api!: ApiService;
 
-  async getMenu(): Promise<GetMenuResp> {
-    return this.api.getBasic('menu');
-  }
+    async getMenu(): Promise<GetMenuResp> {
+        return this.api.getBasic('menu');
+    }
 }
 
 // Don't remove this declaration: this is what enables TypeScript to resolve
@@ -15,7 +15,7 @@ export default class MenuService extends Service {
 // as to check when you pass the service name as an argument to the decorator,
 // like `@service('menu') declare altName: MenuService`.
 declare module '@ember/service' {
-  interface Registry {
-    menu: MenuService;
-  }
+    interface Registry {
+        menu: MenuService;
+    }
 }

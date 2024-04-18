@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-  display: flex;
-  flex-direction: column;
-  background-color: #f7fafc;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7fafc;
 }
