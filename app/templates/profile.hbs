@@ -18,6 +18,14 @@
                 value="{{this.session.activeSession.username}}">
         </div>
         {{else}}
+        {{#if this.isChangePassword}}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="new_password">New Password</label>
+            <input {{on "keyup" this.setChangePasswordReq}}
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="new_password" type="password" placeholder="Enter your new password">
+        </div>
+        {{else}}
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name :
                 {{this.session.activeSession.name}}</label>
@@ -27,7 +35,8 @@
                 {{this.session.activeSession.username}}</label>
         </div>
         {{/if}}
-        <div class="flex justify-center space-x-2">
+        {{/if}}
+        <div class="flex justify-center space-x-4">
             {{#if this.isUpdate}}
             <button type="button" {{on "click" this.setIsUpdate}}
                 class="bg-gray-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
@@ -37,10 +46,24 @@
                 bg-red-500" "bg-gray-500" }} text-white px-8 py-2 rounded-full focus:outline-none transform transition
                 duration-300 hover:scale-105">Save</button>
             {{else}}
+            {{#if this.isChangePassword}}
+            <button type="button" {{on "click" this.setIsChangePassword}}
+                class="bg-gray-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                Cancel
+            </button>
+            <button type="button" {{on "click" this.doChangePassword}} class="{{if this.isChangePasswordValid "
+                bg-red-500" "bg-gray-500" }} text-white px-8 py-2 rounded-full focus:outline-none transform transition
+                duration-300 hover:scale-105">Save</button>
+            {{else}}
             <button type="button" {{on "click" this.setIsUpdate}}
                 class="bg-red-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
                 Edit Profile
             </button>
+            <button type="button" {{on "click" this.setIsChangePassword}}
+                class="bg-red-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                Change Password
+            </button>
+            {{/if}}
             {{/if}}
         </div>
     </div>
