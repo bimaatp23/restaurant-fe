@@ -29,7 +29,6 @@ export default class RegisterController extends Controller {
   @action
   async doRegister() {
     if (this.isValid) {
-      console.log('register start');
       await this.customer.register(this.registerReq).then((response) => {
         if (response.error_schema.error_code === 200) {
           this.router.transitionTo('home');
