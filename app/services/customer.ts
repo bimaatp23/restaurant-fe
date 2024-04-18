@@ -1,5 +1,6 @@
 import Service, { service } from '@ember/service';
 import type { BaseResp } from 'BaseResp';
+import type ChangePasswordCustomerReq from 'customer/ChangePasswordCustomerReq';
 import type { LoginCustomerReq } from 'customer/LoginCustomerReq';
 import type { LoginCustomerResp } from 'customer/LoginCustomerResp';
 import type { RegisterCustomerReq } from 'customer/RegisterCustomerReq';
@@ -23,6 +24,16 @@ export default class CustomerService extends Service {
         return this.api.putToken(
             'customer/update',
             updateReq,
+            this.session.activeSession.token,
+        );
+    }
+
+    async changePassword(
+        changePasswordReq: ChangePasswordCustomerReq,
+    ): Promise<BaseResp> {
+        return this.api.putToken(
+            'customer/change-password',
+            changePasswordReq,
             this.session.activeSession.token,
         );
     }

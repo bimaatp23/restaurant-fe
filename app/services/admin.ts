@@ -1,5 +1,6 @@
 import Service, { service } from '@ember/service';
 import type { BaseResp } from 'BaseResp';
+import type ChangePasswordAdminReq from 'admin/ChangePasswordAdminReq';
 import type { LoginAdminReq } from 'admin/LoginAdminReq';
 import type { LoginAdminResp } from 'admin/LoginAdminResp';
 import type { UpdateAdminReq } from 'admin/UpdateAdminReq';
@@ -18,6 +19,16 @@ export default class AdminService extends Service {
         return this.api.putToken(
             'admin/update',
             updateReq,
+            this.session.activeSession.token,
+        );
+    }
+
+    async changePassword(
+        changePasswordReq: ChangePasswordAdminReq,
+    ): Promise<BaseResp> {
+        return this.api.putToken(
+            'admin/change-password',
+            changePasswordReq,
             this.session.activeSession.token,
         );
     }
