@@ -3,7 +3,10 @@ import { action, computed } from '@ember/object';
 import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import type { LoginAdminReq } from 'admin/LoginAdminReq';
 import type { LoginCustomerReq } from 'customer/LoginCustomerReq';
+import Constant from 'restaurant-fe/Constant';
+import type AdminService from 'restaurant-fe/services/admin';
 import type CustomerService from 'restaurant-fe/services/customer';
 import type SessionService from 'restaurant-fe/services/session';
 import type SwalService from 'restaurant-fe/services/swal';
@@ -11,14 +14,18 @@ import type SwalService from 'restaurant-fe/services/swal';
 export default class LoginController extends Controller {
     @service router!: RouterService;
     @service customer!: CustomerService;
+    @service admin!: AdminService;
     @service session!: SessionService;
     @service swal!: SwalService;
 
     @tracked
-    loginReq: LoginCustomerReq = {
+    loginReq: LoginCustomerReq | LoginAdminReq = {
         username: '',
         password: '',
     };
+
+    @tracked
+    selectedRole: string = '';
 
     @action
     updateData(event: InputEvent) {
@@ -30,30 +37,60 @@ export default class LoginController extends Controller {
     }
 
     @action
+    selectRole(event: InputEvent) {
+        const target = event.target as HTMLSelectElement;
+        this.selectedRole = target.value;
+    }
+
+    @action
     async doLogin() {
         if (this.isValid) {
-            await this.customer.login(this.loginReq).then((response) => {
-                if (response.error_schema.error_code === 200) {
-                    this.session.setSession(response.output_schema);
-                    this.swal.generate(
-                        'success',
-                        response.error_schema.error_message,
-                        () => {
-                            window.location.assign('/');
-                        },
-                    );
-                } else {
-                    this.swal.generate(
-                        'error',
-                        response.error_schema.error_message,
-                    );
-                }
-            });
+            if (this.selectedRole === Constant.ROLE_CUSTOMER) {
+                await this.customer.login(this.loginReq).then((response) => {
+                    if (response.error_schema.error_code === 200) {
+                        this.session.setSession(response.output_schema);
+                        this.swal.generate(
+                            'success',
+                            response.error_schema.error_message,
+                            () => {
+                                window.location.assign('/');
+                            },
+                        );
+                    } else {
+                        this.swal.generate(
+                            'error',
+                            response.error_schema.error_message,
+                        );
+                    }
+                });
+            } else {
+                await this.admin.login(this.loginReq).then((response) => {
+                    if (response.error_schema.error_code === 200) {
+                        this.session.setSession(response.output_schema);
+                        this.swal.generate(
+                            'success',
+                            response.error_schema.error_message,
+                            () => {
+                                window.location.assign('/');
+                            },
+                        );
+                    } else {
+                        this.swal.generate(
+                            'error',
+                            response.error_schema.error_message,
+                        );
+                    }
+                });
+            }
         }
     }
 
-    @computed('loginReq.{password,username}')
+    @computed('loginReq.{password,username}', 'selectedRole')
     get isValid(): boolean {
-        return !!this.loginReq.username && !!this.loginReq.password;
+        return (
+            !!this.loginReq.username &&
+            !!this.loginReq.password &&
+            !!this.selectedRole
+        );
     }
 }

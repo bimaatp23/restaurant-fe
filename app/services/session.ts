@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import type { Session } from 'Session';
+import Constant from 'restaurant-fe/Constant';
 
 export default class SessionService extends Service {
     session: string | null = window.localStorage.getItem('session');
@@ -28,6 +29,13 @@ export default class SessionService extends Service {
 
     isLogin(): boolean {
         return !!this.getSession().name;
+    }
+
+    isAdmin(): boolean {
+        return (
+            !!this.getSession().role &&
+            this.getSession().role === Constant.ROLE_ADMIN
+        );
     }
 }
 

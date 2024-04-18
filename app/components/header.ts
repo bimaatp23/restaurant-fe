@@ -11,16 +11,13 @@ export default class HeaderComponent extends Component {
 
     activeSession: Session = this.session.getSession();
     isLogin: boolean = this.session.isLogin();
+    isAdmin: boolean = this.session.isAdmin();
 
     @action
     doLogout() {
         this.session.removeSesssion();
-        this.swal.generate(
-            'success',
-            'Logout Success',
-            () => {
-                window.location.reload();
-            },
-        )
+        this.swal.generate('success', 'Logout Success', () => {
+            window.location.reload();
+        });
     }
 }

@@ -7,10 +7,16 @@
         </LinkTo>
         <div class="flex items-center justify-end space-x-6 font-semibold">
             {{#if this.isLogin}}
+            {{#if this.isAdmin}}
+            <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Manage Menu</LinkTo>
+            {{else}}
+            <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>
+            {{/if}}
             <button class="transform transition duration-500 hover:scale-105" type="button">Profile</button>
             <button {{on "click" this.doLogout}} class="transform transition duration-500 hover:scale-105"
                 type="button">Logout</button>
             {{else}}
+            <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>
             <LinkTo @route="login" class="transform transition duration-500 hover:scale-105">Login</LinkTo>
             <LinkTo @route="register"
                 class="bg-red-500 px-6 py-3 text-white rounded-full transform transition duration-500 hover:scale-105">

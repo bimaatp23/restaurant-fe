@@ -1,0 +1,22 @@
+import Service, { service } from '@ember/service';
+import type { LoginAdminReq } from 'admin/LoginAdminReq';
+import type { LoginAdminResp } from 'admin/LoginAdminResp';
+import type ApiService from './api';
+
+export default class AdminService extends Service {
+    @service api!: ApiService;
+
+    async login(loginReq: LoginAdminReq): Promise<LoginAdminResp> {
+        return this.api.postBasic('admin/login', loginReq);
+    }
+}
+
+// Don't remove this declaration: this is what enables TypeScript to resolve
+// this service using `Owner.lookup('service:admin')`, as well
+// as to check when you pass the service name as an argument to the decorator,
+// like `@service('admin') declare altName: AdminService;`.
+declare module '@ember/service' {
+    interface Registry {
+        admin: AdminService;
+    }
+}
