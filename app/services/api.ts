@@ -30,6 +30,30 @@ export default class ApiService extends Service {
             .then((response) => response.json())
             .then((json) => json);
     }
+
+    async putToken(
+        url: string,
+        data: Object,
+        accessToken: string,
+    ): Promise<any> {
+        const formData = new URLSearchParams();
+        Object.entries(data).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        return await fetch(
+            `${this.endpoint}/api/${url}?access_token=${accessToken}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Accept: 'application/json',
+                },
+                body: formData.toString(),
+            },
+        )
+            .then((response) => response.json())
+            .then((json) => json);
+    }
 }
 
 // Don't remove this declaration: this is what enables TypeScript to resolve
