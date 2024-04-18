@@ -3,9 +3,11 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import type { Session } from 'Session';
 import type SessionService from 'restaurant-fe/services/session';
+import type SwalService from 'restaurant-fe/services/swal';
 
 export default class HeaderComponent extends Component {
     @service session!: SessionService;
+    @service swal!: SwalService;
 
     activeSession: Session = this.session.getSession();
     isLogin: boolean = this.session.isLogin();
@@ -13,6 +15,12 @@ export default class HeaderComponent extends Component {
     @action
     doLogout() {
         this.session.removeSesssion();
-        window.location.reload();
+        this.swal.generate(
+            'success',
+            'Logout Success',
+            () => {
+                window.location.reload();
+            },
+        )
     }
 }
