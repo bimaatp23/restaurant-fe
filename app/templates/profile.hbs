@@ -1,0 +1,47 @@
+{{page-title "Profile"}}
+
+<div class="flex flex-col items-center pt-10">
+    <div class="bg-white shadow-md rounded-md p-8 w-1/3">
+        <h1 class="text-3xl font-bold text-center text-red-500 mb-4">User Profile</h1>
+        {{#if this.isUpdate}}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+            <input {{on "keyup" this.setUpdateReq}}
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name" type="text" placeholder="Enter your name" value="{{this.session.activeSession.name}}">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+            <input {{on "keyup" this.setUpdateReq}}
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" placeholder="Enter your username"
+                value="{{this.session.activeSession.username}}">
+        </div>
+        {{else}}
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name :
+                {{this.session.activeSession.name}}</label>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username :
+                {{this.session.activeSession.username}}</label>
+        </div>
+        {{/if}}
+        <div class="flex justify-center space-x-2">
+            {{#if this.isUpdate}}
+            <button type="button" {{on "click" this.setIsUpdate}}
+                class="bg-gray-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                Cancel
+            </button>
+            <button type="button" {{on "click" this.doUpdate}} class="{{if this.isUpdateValid "
+                bg-red-500" "bg-gray-500" }} text-white px-8 py-2 rounded-full focus:outline-none transform transition
+                duration-300 hover:scale-105">Save</button>
+            {{else}}
+            <button type="button" {{on "click" this.setIsUpdate}}
+                class="bg-red-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                Edit Profile
+            </button>
+            {{/if}}
+        </div>
+    </div>
+</div>

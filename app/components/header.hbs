@@ -12,7 +12,7 @@
             {{else}}
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>
             {{/if}}
-            <button class="transform transition duration-500 hover:scale-105" type="button">Profile</button>
+            <LinkTo @route="profile" class="transform transition duration-500 hover:scale-105">Profile</LinkTo>
             <button {{on "click" this.doLogout}} class="transform transition duration-500 hover:scale-105"
                 type="button">Logout</button>
             {{else}}

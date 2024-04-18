@@ -32,7 +32,8 @@ export default class LoginController extends Controller {
         const target = event.target as HTMLInputElement;
         this.loginReq = {
             ...this.loginReq,
-            [target.id as keyof LoginCustomerReq]: target.value,
+            [target.id as keyof LoginCustomerReq | keyof LoginAdminReq]:
+                target.value,
         };
     }
 
