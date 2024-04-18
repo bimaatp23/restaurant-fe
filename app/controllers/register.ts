@@ -33,6 +33,11 @@ export default class RegisterController extends Controller {
         if (this.isValid) {
             await this.customer.register(this.registerReq).then((response) => {
                 if (response.error_schema.error_code === 200) {
+                    this.registerReq = {
+                        name: '',
+                        username: '',
+                        password: '',
+                    };
                     this.swal.generate(
                         'success',
                         response.error_schema.error_message,

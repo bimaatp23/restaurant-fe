@@ -1,8 +1,11 @@
+import { action, computed } from '@ember/object';
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import type { Session } from 'Session';
 import Constant from 'restaurant-fe/Constant';
 
 export default class SessionService extends Service {
+    @tracked
     session: string | null = window.localStorage.getItem('session');
 
     getSession(): Session {
@@ -19,19 +22,40 @@ export default class SessionService extends Service {
         return session;
     }
 
+    @action
     setSession(session: Session): void {
+        this.session = JSON.stringify(session);
         window.localStorage.setItem('session', JSON.stringify(session));
     }
 
+    @action
     removeSesssion(): void {
+        this.session = null;
         window.localStorage.removeItem('session');
     }
 
-    isLogin(): boolean {
+    @computed('session')
+    get activeSession(): Session {
+        let session: Session = {
+            id: '',
+            name: '',
+            username: '',
+            role: '',
+            token: '',
+        };
+        if (this.session) {
+            session = JSON.parse(this.session);
+        }
+        return session;
+    }
+
+    @computed('session')
+    get isLogin(): boolean {
         return !!this.getSession().name;
     }
 
-    isAdmin(): boolean {
+    @computed('session')
+    get isAdmin(): boolean {
         return (
             !!this.getSession().role &&
             this.getSession().role === Constant.ROLE_ADMIN

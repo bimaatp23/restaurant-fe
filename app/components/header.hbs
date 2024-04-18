@@ -6,8 +6,8 @@
             </h1>
         </LinkTo>
         <div class="flex items-center justify-end space-x-6 font-semibold">
-            {{#if this.isLogin}}
-            {{#if this.isAdmin}}
+            {{#if this.session.isLogin}}
+            {{#if this.session.isAdmin}}
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Manage Menu</LinkTo>
             {{else}}
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>

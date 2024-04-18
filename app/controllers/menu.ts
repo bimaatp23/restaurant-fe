@@ -8,15 +8,15 @@ export default class MenuController extends Controller {
     @service session!: SessionService;
     @service router!: RouterService;
 
-    orderButtonText: string = this.session.isLogin()
-        ? this.session.isAdmin()
+    orderButtonText: string = this.session.isLogin
+        ? this.session.isAdmin
             ? 'Edit'
             : 'Add to Cart'
         : 'Order Now';
 
     @action
     orderButtonAction() {
-        if (this.session.isLogin()) {
+        if (this.session.isLogin) {
         } else {
             this.router.transitionTo('login');
         }

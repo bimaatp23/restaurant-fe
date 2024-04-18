@@ -8,7 +8,7 @@ export default class RegisterRoute extends Route {
     @service session!: SessionService;
 
     beforeModel() {
-        if (this.session.isLogin()) {
+        if (this.session.isLogin) {
             this.router.transitionTo('home');
         }
     }

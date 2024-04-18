@@ -10,7 +10,7 @@ export default class LoginRoute extends Route {
     @service session!: SessionService;
 
     beforeModel() {
-        if (this.session.isLogin()) {
+        if (this.session.isLogin) {
             this.router.transitionTo('home');
         }
     }

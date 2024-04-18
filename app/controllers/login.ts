@@ -53,7 +53,7 @@ export default class LoginController extends Controller {
                             'success',
                             response.error_schema.error_message,
                             () => {
-                                window.location.assign('/');
+                                this.router.transitionTo('home');
                             },
                         );
                     } else {
@@ -67,11 +67,16 @@ export default class LoginController extends Controller {
                 await this.admin.login(this.loginReq).then((response) => {
                     if (response.error_schema.error_code === 200) {
                         this.session.setSession(response.output_schema);
+                        this.loginReq = {
+                            username: '',
+                            password: '',
+                        };
+                        this.selectedRole = '';
                         this.swal.generate(
                             'success',
                             response.error_schema.error_message,
                             () => {
-                                window.location.assign('/');
+                                this.router.transitionTo('home');
                             },
                         );
                     } else {
