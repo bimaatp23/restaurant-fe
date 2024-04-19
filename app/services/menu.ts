@@ -1,5 +1,6 @@
 import Service, { service } from '@ember/service';
 import type { BaseResp } from 'BaseResp';
+import type { CreateMenuReq } from 'menu/CreateMenuReq';
 import type { DeleteMenuReq } from 'menu/DeleteMenuReq';
 import type { GetMenuResp } from 'menu/GetMenuResp';
 import type { UpdateMenuReq } from 'menu/UpdateMenuReq';
@@ -12,6 +13,14 @@ export default class MenuService extends Service {
 
     async getMenu(): Promise<GetMenuResp> {
         return this.api.getBasic('menu');
+    }
+
+    async createMenu(createMenuReq: CreateMenuReq): Promise<BaseResp> {
+        return this.api.postToken(
+            'menu',
+            createMenuReq,
+            this.session.activeSession.token,
+        );
     }
 
     async updateMenu(updateMenuReq: UpdateMenuReq): Promise<BaseResp> {
