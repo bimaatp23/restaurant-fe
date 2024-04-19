@@ -1,12 +1,24 @@
 import Service, { service } from '@ember/service';
+import type { BaseResp } from 'BaseResp';
+import type { EditMenuReq } from 'menu/EditMenuReq';
 import type { GetMenuResp } from 'menu/GetMenuResp';
 import type ApiService from './api';
+import type SessionService from './session';
 
 export default class MenuService extends Service {
     @service api!: ApiService;
+    @service session!: SessionService;
 
     async getMenu(): Promise<GetMenuResp> {
         return this.api.getBasic('menu');
+    }
+
+    async updateMenu(editMenuReq: EditMenuReq): Promise<BaseResp> {
+        return this.api.putToken(
+            `menu/${editMenuReq.id}`,
+            editMenuReq,
+            this.session.activeSession.token,
+        );
     }
 }
 

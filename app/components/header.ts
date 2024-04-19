@@ -13,8 +13,8 @@ export default class HeaderComponent extends Component {
     @action
     doLogout() {
         this.session.removeSesssion();
-        this.swal.generate('success', 'Logout Success', () => {
-            this.router.transitionTo('home');
-        });
+        this.swal.generate('success', 'Logout Success', () =>
+            this.router.transitionTo('home'),
+        );
     }
 }

@@ -132,9 +132,7 @@ export default class ProfileController extends Controller {
                             this.swal.generate(
                                 'success',
                                 response.error_schema.error_message,
-                                () => {
-                                    this.router.transitionTo('home');
-                                },
+                                () => this.router.transitionTo('home'),
                             );
                         } else {
                             this.swal.generate(
@@ -153,9 +151,7 @@ export default class ProfileController extends Controller {
                             this.swal.generate(
                                 'success',
                                 response.error_schema.error_message,
-                                () => {
-                                    this.router.transitionTo('home');
-                                },
+                                () => this.router.transitionTo('home'),
                             );
                         } else {
                             this.swal.generate(
