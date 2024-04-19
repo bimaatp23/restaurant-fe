@@ -31,6 +31,30 @@ export default class ApiService extends Service {
             .then((json) => json);
     }
 
+    async postToken(
+        url: string,
+        data: Object,
+        accessToken: string,
+    ): Promise<any> {
+        const formData = new URLSearchParams();
+        Object.entries(data).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        return await fetch(
+            `${this.endpoint}/api/${url}?access_token=${accessToken}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Accept: 'application/json',
+                },
+                body: formData.toString(),
+            },
+        )
+            .then((response) => response.json())
+            .then((json) => json);
+    }
+
     async putToken(
         url: string,
         data: Object,
