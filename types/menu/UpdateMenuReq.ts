@@ -1,4 +1,4 @@
-export interface EditMenuReq {
+export interface UpdateMenuReq {
     id: string;
     name: string;
     description: string;

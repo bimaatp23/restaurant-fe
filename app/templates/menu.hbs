@@ -10,8 +10,24 @@
             <h1 class="text-gray-900 poppins text-xl">{{menu.name}}</h1>
             <p class="text-gray-500 poppins text-sm text-center">{{menu.description}}</p>
             <h2 class="text-gray-900 poppins text-2xl font-bold">${{menu.price}}</h2>
-            <button type="button" {{on "click" (fn this.orderButtonAction menu)}}
-                class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105">{{this.orderButtonText}}</button>
+            <div class="flex justify-center space-x-4">
+                {{#if this.session.isLogin}}
+                {{#if this.session.isAdmin}}
+                <button type="button" {{on "click" (fn this.updateMenu menu)}}
+                    class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Edit</button>
+                <button type="button" {{on "click" (fn this.deleteMenu menu)}}
+                    class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Delete</button>
+                {{else}}
+                <button type="button"
+                    class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Add
+                    to Cart</button>
+                {{/if}}
+                {{else}}
+                <LinkTo @route="login"
+                    class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">
+                    Order Now</LinkTo>
+                {{/if}}
+            </div>
         </div>
     </div>
     {{/each}}

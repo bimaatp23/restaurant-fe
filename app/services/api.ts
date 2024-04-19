@@ -54,6 +54,21 @@ export default class ApiService extends Service {
             .then((response) => response.json())
             .then((json) => json);
     }
+
+    async deleteToken(url: string, accessToken: string): Promise<any> {
+        return await fetch(
+            `${this.endpoint}/api/${url}?access_token=${accessToken}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Accept: 'application/json',
+                },
+            },
+        )
+            .then((response) => response.json())
+            .then((json) => json);
+    }
 }
 
 // Don't remove this declaration: this is what enables TypeScript to resolve
