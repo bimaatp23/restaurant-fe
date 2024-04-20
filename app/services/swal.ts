@@ -1,10 +1,13 @@
-import { action } from '@ember/object';
 import Service from '@ember/service';
 import type { SweetAlertIcon } from 'sweetalert2';
 import Swal from 'sweetalert2';
 
 export default class SwalService extends Service {
-    generate(type: SweetAlertIcon, message: string, callback?: () => void) {
+    generate(
+        type: SweetAlertIcon,
+        message: string,
+        callback?: () => void,
+    ): void {
         Swal.fire({
             title: message,
             icon: type,
