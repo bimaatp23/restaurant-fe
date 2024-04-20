@@ -1,10 +1,13 @@
 import { action, computed } from '@ember/object';
-import Service from '@ember/service';
+import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import type { Session } from 'Session';
 import Constant from 'restaurant-fe/Constant';
+import type CartService from './cart';
 
 export default class SessionService extends Service {
+    @service cart!: CartService;
+
     @tracked
     session: string | null = window.localStorage.getItem('session');
 
@@ -32,6 +35,7 @@ export default class SessionService extends Service {
     removeSesssion(): void {
         this.session = null;
         window.localStorage.removeItem('session');
+        this.cart.removeCart();
     }
 
     @computed('session')
@@ -52,6 +56,14 @@ export default class SessionService extends Service {
     @computed('session')
     get isLogin(): boolean {
         return !!this.getSession().name;
+    }
+
+    @computed('session')
+    get isCustomer(): boolean {
+        return (
+            !!this.getSession().role &&
+            this.getSession().role === Constant.ROLE_CUSTOMER
+        );
     }
 
     @computed('session')
