@@ -9,7 +9,7 @@
     </div>
     {{/if}}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-        {{#each this.menuListState as |menu|}}
+        {{#each this.menu.activeMenu as |menu|}}
         <div
             class="bg-white border border-gray-100 transition transform duration-700 hover:shadow-xl hover:scale-105 p-4 rounded-lg relative">
             <img class="w-full h-64 mx-auto object-cover object-center transform transition duration-300 hover:scale-105"

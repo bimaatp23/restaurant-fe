@@ -1,0 +1,61 @@
+{{page-title "Order"}}
+
+<div class="flex flex-col items-center py-10">
+    <div class="bg-white shadow-md rounded-md p-8 w-2/3">
+        <h1 class="text-3xl font-bold text-center text-red-500 mb-4">{{if this.session.isAdmin "Manage Order" "My
+            Order"}}</h1>
+        {{#if this.order.orderCount}}
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        {{#if this.session.isAdmin}}
+                        <th class="border px-4 py-2">Customer</th>
+                        <th class="border px-4 py-2">Date</th>
+                        <th class="border px-4 py-2">Total</th>
+                        <th class="border px-4 py-2">Status</th>
+                        <th class="border px-4 py-2">Action</th>
+                        {{else}}
+                        <th class="border px-4 py-2">Date</th>
+                        <th class="border px-4 py-2">Total</th>
+                        <th class="border px-4 py-2">Status</th>
+                        {{/if}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.order.activeOrder as |order|}}
+                    <tr>
+                        {{#if this.session.isAdmin}}
+                        <td class="border px-4 py-2 text-center">{{order.customer_name}}</td>
+                        <td class="border px-4 py-2 text-center">{{order.date}}</td>
+                        <td class="border px-4 py-2 text-center">$ {{order.total}}</td>
+                        <td class="border px-4 py-2 text-center">{{order.status}}</td>
+                        <td class="border px-4 py-2">
+                            <div class="flex justify-center items-center">
+                                {{#if order.isPending}}
+                                <button type="button" {{on "click" (fn this.processOrder order.id)}}
+                                    class="bg-red-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                                    Process
+                                </button>
+                                {{/if}}
+                                {{#if order.isProcess}}
+                                <button type="button" {{on "click" (fn this.doneOrder order.id)}}
+                                    class="bg-red-500 text-white px-8 py-2 rounded-full focus:outline-none transform transition duration-300 hover:scale-105">
+                                    Done
+                                </button>
+                                {{/if}}
+                            </div>
+                        </td>
+                        {{else}}
+                        <td class="border px-4 py-2 text-center">{{order.date}}</td>
+                        <td class="border px-4 py-2 text-center">$ {{order.total}}</td>
+                        <td class="border px-4 py-2 text-center">{{order.status}}</td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+    </div>
+</div>

@@ -20,7 +20,7 @@ export default class RegisterController extends Controller {
     };
 
     @action
-    updateData(event: InputEvent) {
+    updateData(event: InputEvent): void {
         const target = event.target as HTMLInputElement;
         this.registerReq = {
             ...this.registerReq,
@@ -29,7 +29,7 @@ export default class RegisterController extends Controller {
     }
 
     @action
-    async doRegister() {
+    async doRegister(): Promise<void> {
         if (this.isValid) {
             await this.customer.register(this.registerReq).then((response) => {
                 if (response.error_schema.error_code === 200) {

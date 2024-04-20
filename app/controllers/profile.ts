@@ -38,12 +38,12 @@ export default class ProfileController extends Controller {
     };
 
     @action
-    setIsUpdate() {
+    setIsUpdate(): void {
         this.isUpdate = !this.isUpdate;
     }
 
     @action
-    setIsChangePassword() {
+    setIsChangePassword(): void {
         this.changePasswordReq = {
             new_password: '',
         };
@@ -51,7 +51,7 @@ export default class ProfileController extends Controller {
     }
 
     @action
-    setUpdateReq(event: InputEvent) {
+    setUpdateReq(event: InputEvent): void {
         const target = event.target as HTMLInputElement;
         this.updateReq = {
             ...this.updateReq,
@@ -62,7 +62,7 @@ export default class ProfileController extends Controller {
     }
 
     @action
-    setChangePasswordReq(event: InputEvent) {
+    setChangePasswordReq(event: InputEvent): void {
         const target = event.target as HTMLInputElement;
         this.changePasswordReq = {
             ...this.changePasswordReq,
@@ -73,7 +73,7 @@ export default class ProfileController extends Controller {
     }
 
     @action
-    async doUpdate() {
+    async doUpdate(): Promise<void> {
         if (this.isUpdateValid) {
             if (this.session.activeSession.role === Constant.ROLE_CUSTOMER) {
                 await this.customer.update(this.updateReq).then((response) => {
@@ -120,7 +120,7 @@ export default class ProfileController extends Controller {
     }
 
     @action
-    async doChangePassword() {
+    async doChangePassword(): Promise<void> {
         if (this.isChangePasswordValid) {
             if (this.session.activeSession.role === Constant.ROLE_CUSTOMER) {
                 await this.customer

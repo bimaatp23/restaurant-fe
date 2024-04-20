@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -19,11 +19,6 @@ export default class MenuController extends Controller {
     @service swal!: SwalService;
     @service menu!: MenuService;
     @service cart!: CartService;
-
-    init() {
-        super.init();
-        this.doGetMenu();
-    }
 
     @tracked
     menuList: Menu[] = [];
@@ -47,24 +42,12 @@ export default class MenuController extends Controller {
         id: '',
     };
 
-    async doGetMenu(): Promise<void> {
-        await this.menu.getMenu().then((response) => {
-            this.menuList = response.output_schema.sort((a, b) =>
-                a.name
-                    .trim()
-                    .toLowerCase()
-                    .localeCompare(b.name.trim().toLowerCase()),
-            );
-        });
-    }
-
     async doCreateMenu(): Promise<void> {
         await this.menu.createMenu(this.createMenuReq).then((response) => {
             if (response.error_schema.error_code === 200) {
                 this.swal.generate(
                     'success',
                     response.error_schema.error_message,
-                    () => this.doGetMenu(),
                 );
             } else {
                 this.swal.generate(
@@ -75,13 +58,12 @@ export default class MenuController extends Controller {
         });
     }
 
-    async doUpdateMenu() {
+    async doUpdateMenu(): Promise<void> {
         await this.menu.updateMenu(this.updateMenuReq).then((response) => {
             if (response.error_schema.error_code === 200) {
                 this.swal.generate(
                     'success',
                     response.error_schema.error_message,
-                    () => this.doGetMenu(),
                 );
             } else {
                 this.swal.generate(
@@ -92,13 +74,12 @@ export default class MenuController extends Controller {
         });
     }
 
-    async doDeleteMenu() {
+    async doDeleteMenu(): Promise<void> {
         await this.menu.deleteMenu(this.deleteMenuReq).then((response) => {
             if (response.error_schema.error_code === 200) {
                 this.swal.generate(
                     'success',
                     response.error_schema.error_message,
-                    () => this.doGetMenu(),
                 );
             } else {
                 this.swal.generate(
@@ -109,14 +90,14 @@ export default class MenuController extends Controller {
         });
     }
 
-    setCreateMenuReq(id: keyof CreateMenuReq, value: any) {
+    setCreateMenuReq(id: keyof CreateMenuReq, value: any): void {
         this.createMenuReq = {
             ...this.createMenuReq,
             [id]: value,
         };
     }
 
-    setUpdateMenuReq(id: keyof UpdateMenuReq, value: any) {
+    setUpdateMenuReq(id: keyof UpdateMenuReq, value: any): void {
         this.updateMenuReq = {
             ...this.updateMenuReq,
             [id]: value,
@@ -124,7 +105,7 @@ export default class MenuController extends Controller {
     }
 
     @action
-    createMenu() {
+    createMenu(): void {
         Swal.fire({
             title: 'Edit Menu',
             confirmButtonText: 'Save',
@@ -185,7 +166,7 @@ export default class MenuController extends Controller {
     }
 
     @action
-    updateMenu(menu: Menu) {
+    updateMenu(menu: Menu): void {
         this.updateMenuReq = menu;
         Swal.fire({
             title: 'Edit Menu',
@@ -247,7 +228,7 @@ export default class MenuController extends Controller {
     }
 
     @action
-    deleteMenu(menu: Menu) {
+    deleteMenu(menu: Menu): void {
         this.deleteMenuReq = menu;
         Swal.fire({
             title: 'Delete Menu',
@@ -256,10 +237,5 @@ export default class MenuController extends Controller {
             text: 'Are you sure to delete this menu?',
             preConfirm: () => this.doDeleteMenu(),
         });
-    }
-
-    @computed('menuList')
-    get menuListState(): Menu[] {
-        return this.menuList;
     }
 }

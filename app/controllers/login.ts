@@ -28,7 +28,7 @@ export default class LoginController extends Controller {
     selectedRole: string = '';
 
     @action
-    updateData(event: InputEvent) {
+    updateData(event: InputEvent): void {
         const target = event.target as HTMLInputElement;
         this.loginReq = {
             ...this.loginReq,
@@ -38,13 +38,13 @@ export default class LoginController extends Controller {
     }
 
     @action
-    selectRole(event: InputEvent) {
+    selectRole(event: InputEvent): void {
         const target = event.target as HTMLSelectElement;
         this.selectedRole = target.value;
     }
 
     @action
-    async doLogin() {
+    async doLogin(): Promise<void> {
         if (this.isValid) {
             if (this.selectedRole === Constant.ROLE_CUSTOMER) {
                 await this.customer.login(this.loginReq).then((response) => {

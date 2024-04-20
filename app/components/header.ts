@@ -13,15 +13,10 @@ export default class HeaderComponent extends Component {
     @service cart!: CartService;
 
     @action
-    doLogout() {
+    doLogout(): void {
         this.session.removeSesssion();
         this.swal.generate('success', 'Logout Success', () =>
             this.router.transitionTo('home'),
         );
-    }
-
-    @action
-    consoleCart() {
-        console.log(this.cart.activeCart);
     }
 }

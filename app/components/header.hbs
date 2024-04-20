@@ -8,8 +8,10 @@
         <div class="flex items-center justify-end space-x-6 font-semibold">
             {{#if this.session.isLogin}}
             {{#if this.session.isAdmin}}
+            <LinkTo @route="order" class="transform transition duration-500 hover:scale-105">Manage Order</LinkTo>
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Manage Menu</LinkTo>
             {{else}}
+            <LinkTo @route="order" class="transform transition duration-500 hover:scale-105">My Order</LinkTo>
             <LinkTo @route="cart" class="transform transition duration-500 hover:scale-105">Cart
                 ({{this.cart.cartCount}})</LinkTo>
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>
