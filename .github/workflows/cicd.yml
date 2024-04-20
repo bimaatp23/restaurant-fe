@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - cicd
+      - master
   workflow_dispatch:
 
 jobs:
