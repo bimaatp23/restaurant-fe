@@ -1,7 +1,8 @@
 import Service from '@ember/service';
+import ENV from '../config/environment'
 
 export default class ApiService extends Service {
-    endpoint: string = 'http://localhost:3000';
+    endpoint: string = ENV.APP['ENDPOINT'] as string;
 
     async getBasic(url: string): Promise<any> {
         return await fetch(`${this.endpoint}/api/${url}`, {

@@ -25,6 +25,9 @@ module.exports = function (defaults) {
                 ],
             },
         },
+        dotEnv: {
+            clientAllowedKeys: ['ENDPOINT']
+        }
 
         // Add options here
     });
