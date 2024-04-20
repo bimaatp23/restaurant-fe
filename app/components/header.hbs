@@ -10,6 +10,8 @@
             {{#if this.session.isAdmin}}
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Manage Menu</LinkTo>
             {{else}}
+            <LinkTo @route="cart" class="transform transition duration-500 hover:scale-105">Cart
+                ({{this.cart.cartCount}})</LinkTo>
             <LinkTo @route="menu" class="transform transition duration-500 hover:scale-105">Menu</LinkTo>
             {{/if}}
             <LinkTo @route="profile" class="transform transition duration-500 hover:scale-105">Profile</LinkTo>

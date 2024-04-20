@@ -1,11 +1,13 @@
 {{page-title "Menu"}}
 
 <div class="px-10 py-5">
+    {{#if this.session.isAdmin}}
     <div class="flex justify-end mb-4">
         <button type="button" {{on "click" this.createMenu}}
             class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Create
             New Menu</button>
     </div>
+    {{/if}}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
         {{#each this.menuListState as |menu|}}
         <div
@@ -24,7 +26,7 @@
                     <button type="button" {{on "click" (fn this.deleteMenu menu)}}
                         class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Delete</button>
                     {{else}}
-                    <button type="button"
+                    <button type="button" {{on "click" (fn this.cart.addMenu menu)}}
                         class="bg-red-500 text-white px-8 py-2 focus:outline-none poppins rounded-full transform transition duration-300 hover:scale-105">Add
                         to Cart</button>
                     {{/if}}

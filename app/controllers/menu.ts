@@ -7,6 +7,7 @@ import type { CreateMenuReq } from 'menu/CreateMenuReq';
 import type { DeleteMenuReq } from 'menu/DeleteMenuReq';
 import type { Menu } from 'menu/Menu';
 import type { UpdateMenuReq } from 'menu/UpdateMenuReq';
+import type CartService from 'restaurant-fe/services/cart';
 import type MenuService from 'restaurant-fe/services/menu';
 import type SessionService from 'restaurant-fe/services/session';
 import type SwalService from 'restaurant-fe/services/swal';
@@ -17,6 +18,7 @@ export default class MenuController extends Controller {
     @service router!: RouterService;
     @service swal!: SwalService;
     @service menu!: MenuService;
+    @service cart!: CartService;
 
     init() {
         super.init();
@@ -50,8 +52,8 @@ export default class MenuController extends Controller {
             this.menuList = response.output_schema.sort((a, b) =>
                 a.name
                     .trim()
-                    .toLocaleLowerCase()
-                    .localeCompare(b.name.trim().toLocaleLowerCase()),
+                    .toLowerCase()
+                    .localeCompare(b.name.trim().toLowerCase()),
             );
         });
     }
